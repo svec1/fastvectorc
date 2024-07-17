@@ -1,2 +1,4 @@
 # singly linked list
-This list will be constructed as follows: at the first memory allocation, memory will be allocated for the structure to which the root pointer will point, it will store the nth amount of data, where the last element will be a pointer to the next structure, as well as what the root pointer points to
+This implementation of a singly linked list will look like this: each node, including the root,
+will have the nth amount of data, with each element of this list being the size of data_byte_size
+(the size in bytes of the data type that was specified when creating the list).
