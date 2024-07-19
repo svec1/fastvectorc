@@ -55,7 +55,7 @@ void allocate_mem_fdata(list** root_l){
 
 node** find_node_wfree_allocate_mem(node** nod_last, node** nod){
     if(!(*nod)) return nod_last;
-    else if((*nod)->data_alloc->count_elem < MAX_SIZE_NODE_DATA) return nod;
+    else if((*nod)->data_alloc->count_elem < MAX_SIZE_NODE_DATA && !(*nod)->next_node) return nod;
     return find_node_wfree_allocate_mem(nod, &(*nod)->next_node);
 }
 
@@ -82,6 +82,18 @@ unsigned char index_element_is_null(data* data_alloc, size_t data_struct_byte_si
         }
     }
     return is_null;
+}
+
+size_t get_offset_last_element_allocate_mem(data* data_alloc, size_t data_struct_byte_size){
+    if(!data_alloc){
+        printf("It's not possible to check data to unallocated memory\n");
+        exit(1);
+    }
+    for(size_t i = MAX_SIZE_NODE_DATA-1; i >= 0; --i){
+        if(index_element_is_null(data_alloc, data_struct_byte_size, i)) continue;
+        else return i;
+    }
+    return NULL;
 }
 
 void copy_data_byte_to_data_alloc_allocate_mem(data** data_alloc, void* data, size_t data_struct_byte_size){
@@ -204,4 +216,13 @@ void* get_element(list** root_l, size_t index){
     if(index_element_is_null((*nod)->data_alloc, (*root_l)->data_struct_byte_size, (index>= index_count_el_nodes) ? index-index_count_el_nodes : index) == 1)
         goto not_exist_el;
     return copy_data_byte_from_allocate_mem(&(*nod)->data_alloc, (*root_l)->data_struct_byte_size, (index>= index_count_el_nodes) ? index-index_count_el_nodes : index);
+}
+void* get_last_element(list** root_l){
+    if (!(*root_l)) {
+        printf("Passed to function - copy_el_data_to_allocate_mem_fdata(), the list does not exist\n");
+        exit(1);
+    }
+    node** nod = find_node_wfree_allocate_mem(NULL, &(*root_l)->node);
+    //debug_output_allocate_mem_char(nod, (*root_l)->data_struct_byte_size);
+    return copy_data_byte_from_allocate_mem(&(*nod)->data_alloc,(*root_l)->data_struct_byte_size, get_offset_last_element_allocate_mem(&(*nod)->data_alloc, (*root_l)->data_struct_byte_size));
 }
