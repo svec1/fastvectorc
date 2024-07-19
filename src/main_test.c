@@ -10,10 +10,9 @@ int main(){
     for(size_t i = 0; i < 99; ++i){
         add_element_to_list(&l, &i, sizeof(size_t));
     }
+    del_index_element_to_list(&l, 97);
     del_last_element_to_list(&l);
-    void* a_ptr = get_element(&l, 98);
-    del_last_element_to_list(&l);
+    void* a_ptr = get_element(&l, 96);
     printf("Int a: %i\n", *((size_t*)a_ptr));
-    a_ptr = get_element(&l, 98);
     return 0;
 }
