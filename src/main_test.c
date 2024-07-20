@@ -12,8 +12,13 @@ int main(){
     }
     del_index_element_to_list(&l, 97);
     del_index_element_to_list(&l, 94);
+
+    size_t data = 993;
+    append_element_to_list(&l, &data, sizeof(size_t), 23);
+    append_element_to_list(&l, &data, sizeof(size_t), 25);
+    
     //del_last_element_to_list(&l);
-    void* a_ptr = get_last_element(&l);
+    void* a_ptr = get_element(&l, 27);
     printf("Int a: %i\n", *((size_t*)a_ptr));
     return 0;
 }

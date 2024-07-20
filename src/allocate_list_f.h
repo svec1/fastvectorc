@@ -41,7 +41,7 @@ void allocate_mem_fdata(list** root_l);
 
 node** find_node_wfree_allocate_mem(node** nod_last, node** nod);
 
-node** find_node_index_allocate_mem(node** nod, size_t index, size_t* curr_index);
+node** find_node_index_allocate_mem(node** nod, size_t* index);
 
 unsigned char index_element_is_null(data* data_alloc, size_t data_struct_byte_size, size_t offset);
 
@@ -54,6 +54,7 @@ void erase_data_byte_in_allocate_mem(data** data_alloc, size_t data_struct_byte_
 void* copy_data_byte_from_allocate_mem(data** data_alloc, size_t data_struct_byte_size, size_t offset);
 
 void add_element_to_list(list** root_l, void* data, size_t data_struct_byte_size);
+void append_element_to_list(list** root_l, void* data, size_t data_struct_byte_size, size_t after_index);
 void del_last_element_to_list(list** root_l);
 void del_index_element_to_list(list** root_l, size_t index);
 
