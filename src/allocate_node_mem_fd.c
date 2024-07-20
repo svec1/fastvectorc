@@ -1,5 +1,6 @@
 #include "allocate_node_mem_f.h"
 
+#include <string.h>
 #include <stdlib.h>
 
 void debug_output_allocate_mem_char(node** nod, size_t data_struct_byte_size){
@@ -48,6 +49,12 @@ void try_free_mem_fdata_node(node** nod){
         else
             free(*nod);
     }
+}
+void free_node(node** nod){
+    if((*nod)->next_node) free_node(&(*nod)->next_node);
+    free((*nod)->data_alloc->allocate_data);
+    free((*nod)->data_alloc);
+    free((*nod));
 }
 
 node** find_node_wfree_allocate_mem(node** nod_last, node** nod){
