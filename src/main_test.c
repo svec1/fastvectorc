@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "allocate_list_f.h"
+#include "interaction_list_f.h"
 
 int main(){
 
@@ -18,7 +18,7 @@ int main(){
     append_element_to_list(&l, &data, sizeof(size_t), 25);
     
     //del_last_element_to_list(&l);
-    void* a_ptr = get_element(&l, 27);
+    void* a_ptr = get_element_list(&l, 27);
     printf("Int a: %i\n", *((size_t*)a_ptr));
     return 0;
 }
