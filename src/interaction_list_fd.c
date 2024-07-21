@@ -95,13 +95,21 @@ void* get_element_list(list** root_l, size_t index){
         printf("Passed to function - copy_el_data_to_allocate_mem_fdata(), the list does not exist\n");
         exit(1);
     }
+    size_t tmp_index = index;
     node** nod = find_node_index_allocate_mem(&(*root_l)->node, &index);
     if(nod == NULL){
         not_exist_el:
         printf("Element with index not found - %d\n", index);
         exit(1);
     }
-    //debug_output_allocate_mem_char(nod, (*root_l)->data_struct_byte_size);
+    if(index_element_is_reserv((*nod)->data_alloc, (*root_l)->data_struct_byte_size, index)){
+        index = --tmp_index;
+        while((nod = find_node_index_allocate_mem(&(*root_l)->node, &index)) != NULL && index_element_is_reserv((*nod)->data_alloc, (*root_l)->data_struct_byte_size, index)){
+            if(!index)
+                index = --tmp_index;
+         }
+    }
+    debug_output_allocate_mem_char(nod, (*root_l)->data_struct_byte_size);
     if(index_element_is_null((*nod)->data_alloc, (*root_l)->data_struct_byte_size, index) == 1)
         goto not_exist_el;
     return copy_data_byte_from_allocate_mem(&(*nod)->data_alloc, (*root_l)->data_struct_byte_size, index);

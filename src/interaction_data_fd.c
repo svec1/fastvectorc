@@ -2,20 +2,20 @@
 
 #include <stdlib.h>
 
-unsigned char index_element_is_null(data* data_alloc, size_t data_struct_byte_size, size_t offset){
+unsigned char index_element_is(data* data_alloc, size_t data_struct_byte_size, size_t offset, unsigned char is_ch){
     if(!data_alloc){
         printf("It's not possible to check data to unallocated memory\n");
         exit(1);
     }
-    unsigned char is_null = 0;
+    unsigned char _is = 0;
     for(size_t i = offset*data_struct_byte_size; i < offset*data_struct_byte_size+data_struct_byte_size; ++i){
-        if(((unsigned char*)data_alloc->allocate_data)[i] == NULL && !is_null) is_null = 1;
-        else if(((unsigned char*)data_alloc->allocate_data)[i] != NULL){
-            is_null = 0;
+        if(((unsigned char*)data_alloc->allocate_data)[i] == is_ch && !_is) _is = 1;
+        else if(((unsigned char*)data_alloc->allocate_data)[i] != is_ch){
+            _is = 0;
             break;
         }
     }
-    return is_null;
+    return _is;
 }
 
 size_t get_offset_last_element_allocate_mem(data* data_alloc, size_t data_struct_byte_size){
@@ -24,7 +24,7 @@ size_t get_offset_last_element_allocate_mem(data* data_alloc, size_t data_struct
         exit(1);
     }
     for(size_t i = MAX_SIZE_NODE_DATA-1; i >= 0; --i){
-        if(index_element_is_null(data_alloc, data_struct_byte_size, i)) continue;
+        if(index_element_is_null(data_alloc, data_struct_byte_size, i) || index_element_is_reserv(data_alloc, data_struct_byte_size, i)) continue;
         else return i;
     }
     return NULL;
@@ -58,7 +58,7 @@ void erase_data_byte_in_allocate_mem(data** data_alloc, size_t data_struct_byte_
         exit(1);
     }
     for(size_t i = offset*data_struct_byte_size; i < offset*data_struct_byte_size+data_struct_byte_size; ++i){
-        ((unsigned char*)(*data_alloc)->allocate_data)[i] = NULL;
+        ((unsigned char*)(*data_alloc)->allocate_data)[i] = BYTE_RESERV_COMPOSE;
     }
     --(*data_alloc)->count_elem;
 }
@@ -67,6 +67,8 @@ void* copy_data_byte_from_allocate_mem(data** data_alloc, size_t data_struct_byt
         printf("It's not possible to copy data to unallocated memory\n");
         exit(1);
     }
+    if(((unsigned char*)(*data_alloc)->allocate_data)[offset*data_struct_byte_size] == BYTE_RESERV_COMPOSE)
+        offset = get_offset_last_element_allocate_mem(data_alloc, data_struct_byte_size);
     void* data_copy = malloc(data_struct_byte_size);
     for(size_t i = offset*data_struct_byte_size, j = 0; i < offset*data_struct_byte_size+data_struct_byte_size; ++i, ++j){
         ((unsigned char*)data_copy)[j] = ((unsigned char*)(*data_alloc)->allocate_data)[i];

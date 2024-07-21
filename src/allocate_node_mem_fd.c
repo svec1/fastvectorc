@@ -68,7 +68,7 @@ node** find_node_index_allocate_mem(node** nod, size_t *index){
     else if(*index<(*nod)->data_alloc->ros){
         return nod;
     }
-    else if (index > (*nod)->data_alloc->ros && (*nod)->next_node) 
+    else if (index > (*nod)->data_alloc->ros && (*nod)->next_node)
         *index -= (*nod)->data_alloc->ros;
     else
         *index-=MAX_SIZE_NODE_DATA;

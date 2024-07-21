@@ -3,7 +3,10 @@
 
 #include <stdio.h>
 
+
 #define MAX_SIZE_NODE_DATA 5
+
+#define BYTE_RESERV_COMPOSE 0xFF
 
 #define is_digit_uchar(ch) (ch >= 0 && ch <= 9)
 #define is_alpha_hex_uchar(ch) (ch >= 10 && ch <= 15)
