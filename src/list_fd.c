@@ -17,7 +17,7 @@ void push(list** root_l, data_element data){
     add_element_to_list(root_l, data.allocate_data, data.data_struct_byte_size);
 }
 void append(list** root_l, data_element data, size_t index){
-    append_element_to_list(root_l, data.allocate_data, data.data_struct_byte_size, index);
+    append_element_to_list(root_l, data.allocate_data, data.data_struct_byte_size, index-1);
 }
 
 data_element pop(list** root_l){

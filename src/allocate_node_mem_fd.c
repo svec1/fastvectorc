@@ -3,23 +3,35 @@
 #include <string.h>
 #include <stdlib.h>
 
-void debug_output_allocate_mem_char(node** nod, size_t data_struct_byte_size){
-    if(!(*nod) || !(*nod)->data_alloc){
+void debug_output_allocate_mem_char(node* nod, size_t data_struct_byte_size){
+    if(!nod || !nod->data_alloc){
         printf("It's not possible to read data to unallocated memory\n");
         exit(1);
     }
-    for(size_t i = 0; i < MAX_SIZE_NODE_DATA*data_struct_byte_size; ++i){
-        if(i%data_struct_byte_size==0 && i != 0)
-            printf(" %zu BYTE\n", data_struct_byte_size);
-        if(((unsigned char*)(*nod)->data_alloc->allocate_data)[i] == NULL)
+    unsigned char* byte_chain_64t = malloc(sizeof(size_t));
+
+    for(size_t i = 0, j = 0; i < MAX_SIZE_NODE_DATA*data_struct_byte_size; ++i, ++j){
+        if(i%data_struct_byte_size==0 && i != 0){
+            if(*(size_t*)byte_chain_64t == ULLONG_MAX)
+                printf(" %zu BYTE (RESERVE)\n", data_struct_byte_size);
+            else
+                printf(" %zu BYTE (%zu)\n", data_struct_byte_size, *(size_t*)byte_chain_64t);
+            j = 0;
+        }
+        if(((unsigned char*)nod->data_alloc->allocate_data)[i] == NULL)
             printf("NL ");
-        else if(is_digit_uchar(((unsigned char*)(*nod)->data_alloc->allocate_data)[i]) || is_alpha_hex_uchar(((unsigned char*)(*nod)->data_alloc->allocate_data)[i]))
-            printf("0%X ", ((unsigned char*)(*nod)->data_alloc->allocate_data)[i]);
+        else if(is_digit_uchar(((unsigned char*)nod->data_alloc->allocate_data)[i]) || is_alpha_hex_uchar(((unsigned char*)nod->data_alloc->allocate_data)[i]))
+            printf("0%X ", ((unsigned char*)nod->data_alloc->allocate_data)[i]);
         else
-            printf("%X ", ((unsigned char*)(*nod)->data_alloc->allocate_data)[i]);
+            printf("%X ", ((unsigned char*)nod->data_alloc->allocate_data)[i]);
+        byte_chain_64t[j] = ((unsigned char*)nod->data_alloc->allocate_data)[i];
     }
-    if((*nod)->data_alloc->ros*data_struct_byte_size%data_struct_byte_size==0 && (*nod)->data_alloc->ros*data_struct_byte_size != 0)
-        printf(" %zu BYTE\n", data_struct_byte_size);
+    if(nod->data_alloc->ros*data_struct_byte_size%data_struct_byte_size==0 && nod->data_alloc->ros*data_struct_byte_size != 0)
+        if(*(size_t*)byte_chain_64t == ULLONG_MAX)
+            printf(" %zu BYTE (RESERVE)\n", data_struct_byte_size);
+        else
+            printf(" %zu BYTE (%zu)\n", data_struct_byte_size, *(size_t*)byte_chain_64t);
+    free(byte_chain_64t);
     printf("\n");
 }
 

@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-#define MAX_SIZE_NODE_DATA 5
+#define MAX_SIZE_NODE_DATA 16
 
 #define BYTE_RESERV_COMPOSE 0xFF
 
@@ -23,7 +23,7 @@ typedef struct node{
     struct node* next_node;
 } node;
 
-void debug_output_allocate_mem_char(node** nod, size_t data_struct_byte_size);
+void debug_output_allocate_mem_char(node* nod, size_t data_struct_byte_size);
 
 #define DEBUG_TRACKING_ALLOC_MEM_BEFORE(what_tracking, node, data_struct_byte_size) \
                                         printf("[%s] MEMORY BEFORE: \n", what_tracking); \

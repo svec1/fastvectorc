@@ -12,6 +12,8 @@ typedef struct root{
 
 typedef root list;
 
+void debug_output_list_chain_u64t(list* root_l);
+
 void allocate_mem_fdata(list** root_l);
 
 void add_element_to_list(list** root_l, void* data, size_t data_struct_byte_size);
