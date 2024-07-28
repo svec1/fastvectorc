@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 svec */
+
 #ifndef LIST__H
 #define LIST__H
 
