@@ -1,10 +1,12 @@
+/* Copyright (c) 2024 svec */
+
 #ifndef _ALLOCATE_NODE_MEM_F__H
 #define _ALLOCATE_NODE_MEM_F__H
 
 #include <stdio.h>
 
 
-#define MAX_SIZE_NODE_DATA 16
+#define MAX_SIZE_NODE_DATA 1
 
 #define BYTE_RESERV_COMPOSE 0xFF
 

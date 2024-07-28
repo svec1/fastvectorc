@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 svec */
+
 #ifndef INTERACTION_LIST__H
 #define INTERACTION_LIST__H
 

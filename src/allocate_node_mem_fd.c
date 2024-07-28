@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 svec */
+
 #include "allocate_node_mem_f.h"
 
 #include <string.h>

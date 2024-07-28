@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 svec */
+
 #ifndef INTERACTION_DATA_F__H
 #define INTERACTION_DATA_F__H
 

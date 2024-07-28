@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/list.h"
@@ -31,6 +30,6 @@ int main(){
     
     //del_last_element_to_list(&l);
     void* a_ptr = get_element_list(&l,24);
-    printf("Int a: %i\n", *((size_t*)a_ptr));
+    printf("Int a: %zu\n", *((size_t*)a_ptr));
     return 0;
 }

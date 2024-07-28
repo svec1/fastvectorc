@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 svec */
+
 #include "../include/list.h"
 
 #include <stdlib.h>

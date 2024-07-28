@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 svec */
+
 #include "interaction_list_f.h"
 
 #include <stdlib.h>
